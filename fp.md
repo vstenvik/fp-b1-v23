@@ -21,12 +21,100 @@ Vegard Stenvik
 
 ---
 
-Rene funksjoner
+# Rene funksjoner
 
 * Deterministiske - gir samme resultat hver gang
 * Påvirker ikke omverdenen - eneste output er returverdi
 * Idempotent 
 
+---
+
+```typescript
+async function saveDataToDatabase(data: Data): Promise<void> {
+    await database.SaveData(data);
+}
+```
+---
+
+```typescript
+function getYearsFromToday(date: Date): int {
+    const now = new Date();
+    return now.getYear() - date.getYear();
+}
+```
+---
+```typescript
+function getYearsFromToday(date: Date, now: Date): int {
+    return now.getYear() - date.getYear();
+}
+```
+---
+
+```typescript
+function Example(a: int, b: boolean): void
+```
+---
+```typescript
+function Example(): int
+```
+
+---
+```typescript
+const PI = 3.1415
+
+function hentOmkretsAvSirkel(circle: Circle): int {
+    return 2 * circle.radius * PI;
+}
+```
+---
+
+# Fordeler med rene funksjoner?
+
+---
+
+* Lette å skrive enhetstester for
+* Lett å cache resultatet
+    * Memoisering
+
+---
+
+```typescript
+function memoize<TFunction>(fn: TFunction): TFunction {
+    const cache = {}
+
+    return (...args) => {
+        let argsHash: string = hash(args);
+        if(cache[argsHash]){
+            return cache[argsHash]
+        }
+        else {
+            const result = fn(...args);
+            cache[argsHash] = result;
+            return result;
+        }
+    }
+}
+```
+---
+
+```typescript
+const tungBeregning = () => { console.log('hallo') }
+
+tungBeregning()
+// console: hallo
+tungBeregning()
+// console: hallo
+tungBeregning()
+// console: hallo
+
+const memoizedTungBeregning = memoize(tungBeregning);
+
+memoizedTungBeregning()
+// console: hallo
+memoizedTungBeregning()
+memoizedTungBeregning()
+
+```
 ---
 
 OOP
