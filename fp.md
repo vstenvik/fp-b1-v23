@@ -21,7 +21,7 @@ Vegard Stenvik
 ---
 
 - Begreper
-- Fordeler med FP
+- Fordeler med FP?
 
 ---
 
@@ -48,15 +48,15 @@ Vegard Stenvik
 
 ```typescript
 function getYearsFromToday(date: Date): number {
-    const now = new Date();
-    return now.getYear() - date.getYear();
+const now = new Date();
+return now.getYear() - date.getYear();
 }
 ```
 
 ## Deterministisk
 ```typescript
 function getYearsFromToday(date: Date, now: Date): int {
-    return now.getYear() - date.getYear();
+return now.getYear() - date.getYear();
 }
 ```
 
@@ -118,7 +118,7 @@ function Example(): number
 const PI = 3.1415
 
 function hentOmkretsAvSirkel(circle: Circle): number {
-    return 2 * circle.radius * PI;
+return 2 * circle.radius * PI;
 }
 ```
 ---
@@ -139,13 +139,11 @@ add(5, 1)
 
 # Fordeler med rene funksjoner?
 
----
-
 * Forutsigbare
 * Lett å kombinere med andre funksjoner
 * Lette å skrive enhetstester for
 * Lett å cache resultatet
-    * Memoisering
+* Memoisering
 
 ---
 
@@ -173,26 +171,30 @@ memoizedTungBeregning()
 
 # Høyere ordens funksjoner
 
-<!-- Innlednigsvis handler fp om å komponere funkssjoner
-     HOF er en måte å gjøre det på
+<!-- Innlednigsvis handler fp om å komponere funksjoner
+    HOF er en måte å gjøre det på
 -->
 
-Funksjoner som tar andre funksjoner som parameter
+Funksjoner som tar funksjoner som parameter
+eller returnerer en funksjon
+
+---
+
+## Eksempel: map
 
 map: gjør *noe* med hvert element i en liste
 
 
-```f#
+```ts
 // toUppercase: string -> string
-let toUppercase str = ...
+let toUppercase = (str: string) => ...
 
 // toUppercaseList: string[] -> string[]
-let toUppercaseList list = List.map toUppercase
+let toUppercaseList = map(toUppercase)
 
-toUppercaseList ['Hund', 'Katt', 'Frosk'] //['HUND', 'KATT', 'FROSK']
+toUppercaseList(['Hund', 'Katt', 'Frosk']) //['HUND', 'KATT', 'FROSK']
 
 ```
-
 ---
 
 # FP vs. OOP
@@ -213,9 +215,9 @@ OOP
 
 ```C#
 public class Ansatt {
-    public string Name { get; set; }
-    public DateTime Birthdate { get; set; }
-    public int Ansennitet { get; set; }
+    private string Name { get; set; }
+    private DateTime Birthdate { get; set; }
+    private int Ansennitet { get; set; }
 
     public Human(string name, DateTime birthdate)
     {
@@ -249,44 +251,36 @@ let getAge human = ...
 
 ---
 
-# Tilstand vs. Data
+# Muterbar tilstand vs. immutable data
 
-Når klasser har metoder for å oppdatere seg selv, oppfordrer dette til mutasjon. Mutasjon betyr at et objekt kan ha ulike tilstander.
+<!--
+Når klasser har *metoder* for å oppdatere seg selv, oppfordrer dette til mutasjon. Mutasjon betyr at et objekt kan ha ulike *tilstander*.
 
 Ved å begrense mutasjon, må tvinges vi til å være bevviste på hvor i en applikasjon vi har tilstand.
+-->
+---
+![](carlos-aranda-Spq4fuFM4Kw-unsplash.jpg)
+Foto: Carlos Aranda
+
+
+<!--
+- En mulig tilstand kan være en delvis initiert tilstand, hvor man har fylt noen men ikke alle påkrevde properties på en klasse
+
+Ved å bruke språk som oppfordrer til immutabilitet vil vi få mer lesbar kode, fordi vi vet at når en verdi er satt, så er den satt og man slipper å lete gjennom en metode etter andre steder hvor verdien kan endres fra
+-->
 
 ---
 
-```c#
-var kari = new Ansatt("Kari", new Date(1990, 1, 1));
-
-var bedrift = new Bedrift("Konsulentselskapet AS");
-
-Ansettelsesforhold ansettelsesforhold = bedrift.Ansett(kari);
-
-ansattelsesforhold.BeregnAnsennitet();
-ansattelsesforhold.Lagre();
-
-kari.GetAge(); // Resultat: 0
-```
+Blir det ikke ineffektivt hvis man skal kopiere alt hele tiden?
 
 ---
 
-```f#
-let kari = { name = "Kari", birthdate = DateTime(1990, 1, 1) }
-
-let bedrift = { name = "Konsulentselskapet AS" );
-
-let ansettelsesforhold = Bedrift.ansett bedrift kari
-
-let kariMedAnsennitet = { kari with ansennitet = ansattelsesforhold.BeregnAnsennitet() }
-ansattelsesforhold.Lagre();
-
-kari.GetAge(); // Resultat: 33
-```
+![w:800](link-list-1.png)
 
 ---
 
-* HIGHER ORDER FUNCTIONS
-* TODO: ICOMPARABLE VS SORTBY
-* Tail end recursion
+![w:800](link-list-2.png)
+
+<!--
+
+-->
