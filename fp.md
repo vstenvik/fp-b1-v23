@@ -274,8 +274,8 @@ Når klasser har *metoder* for å oppdatere seg selv, oppfordrer dette til mutas
 Ved å begrense mutasjon, må tvinges vi til å være bevisste på hvor i en applikasjon vi har tilstand.
 -->
 ---
-![](carlos-aranda-Spq4fuFM4Kw-unsplash.jpg)
-Foto: Carlos Aranda
+![w:850](carlos-aranda-Spq4fuFM4Kw-unsplash.jpg)
+Foto: Carlos Aranda / unsplash
 
 
 <!--
