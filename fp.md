@@ -28,8 +28,8 @@ Vegard Stenvik
 # Begreper 
 
 - Rene funksjoner
+- Høyere ordens funksjoner
 - Immutabilitet
-- Higher order functions
 
 ---
 
@@ -48,15 +48,15 @@ Vegard Stenvik
 
 ```typescript
 function getYearsFromToday(date: Date): number {
-const now = new Date();
-return now.getYear() - date.getYear();
+    const now = new Date();
+    return now.getYear() - date.getYear();
 }
 ```
 
 ## Deterministisk
 ```typescript
 function getYearsFromToday(date: Date, now: Date): int {
-return now.getYear() - date.getYear();
+    return now.getYear() - date.getYear();
 }
 ```
 
@@ -118,7 +118,7 @@ function Example(): number
 const PI = 3.1415
 
 function hentOmkretsAvSirkel(circle: Circle): number {
-return 2 * circle.radius * PI;
+    return 2 * circle.radius * PI;
 }
 ```
 ---
@@ -143,28 +143,43 @@ add(5, 1)
 * Lett å kombinere med andre funksjoner
 * Lette å skrive enhetstester for
 * Lett å cache resultatet
-* Memoisering
 
 ---
 
 # Memoisering
 
 ```typescript
-const tungBeregning = () => { console.log('hallo') }
+const tungBeregning = (navn: string) => {
+     const hilsen = 'Hallo, ' + navn;
+     console.log(hilsen);
+     return hilsen
+}
 
-tungBeregning()
-// console: hallo
-tungBeregning()
-// console: hallo
-tungBeregning()
-// console: hallo
+tungBeregning("Vegard")
+// console: Hallo, Vegard
+// output: Hallo, Vegard
+tungBeregning("Vegard")
+// console: Hallo, Vegard
+// output: Hallo, Vegard
+tungBeregning("Vegard")
+// console: Hallo, Vegard
+// output: Hallo, Vegard
 
 const memoizedTungBeregning = memoize(tungBeregning);
 
-memoizedTungBeregning()
-// console: hallo
-memoizedTungBeregning()
-memoizedTungBeregning()
+memoizedTungBeregning("Vegard")
+// console: Hallo, Vegard
+// output: Hallo, Vegard
+
+memoizedTungBeregning("Vegard")
+// output: Hallo, Vegard
+
+memoizedTungBeregning("Vegard")
+// output: Hallo, Vegard
+
+memoizedTungBeregning("Knut")
+// console: Hallo, Knut
+// output: Hallo, Knut
 
 ```
 ---
@@ -256,7 +271,7 @@ let getAge human = ...
 <!--
 Når klasser har *metoder* for å oppdatere seg selv, oppfordrer dette til mutasjon. Mutasjon betyr at et objekt kan ha ulike *tilstander*.
 
-Ved å begrense mutasjon, må tvinges vi til å være bevviste på hvor i en applikasjon vi har tilstand.
+Ved å begrense mutasjon, må tvinges vi til å være bevisste på hvor i en applikasjon vi har tilstand.
 -->
 ---
 ![](carlos-aranda-Spq4fuFM4Kw-unsplash.jpg)
@@ -275,12 +290,39 @@ Blir det ikke ineffektivt hvis man skal kopiere alt hele tiden?
 
 ---
 
+# Eksempel: liste
+
 ![w:800](link-list-1.png)
 
 ---
 
+# Eksempel: liste
+
 ![w:800](link-list-2.png)
 
-<!--
 
--->
+---
+
+# Eksempel: git
+
+![w:800](git.png)
+
+---
+Oppdatering av immutable data
+
+## F#
+```f#
+let bil = { hjul = 4; merke = "Volvo" }
+let bil2 = { bil with hjul = 2 }
+```
+
+## JavaScript
+```js
+let bil = { hjul: 4; merke: 'Volvo' };
+let bil2 = { ...bil, hjul: 2 }
+```
+
+---
+
+Konklusjon
+
