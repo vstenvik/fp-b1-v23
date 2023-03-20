@@ -12,6 +12,7 @@ BouvetOne 28.03.2023
 Vegard Stenvik
 
 ![w:600](xkcd.png)
+https://xkcd.com/1790/
 
 ---
 
@@ -324,5 +325,4 @@ let bil2 = { ...bil, hjul: 2 }
 
 ---
 
-Konklusjon
-
+Takk
