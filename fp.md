@@ -325,4 +325,4 @@ let bil2 = { ...bil, hjul: 2 }
 
 ---
 
-Takk
+Konklusjon
